@@ -73,7 +73,7 @@ Cloner le dépôt GitHub :
 > npm run prod 
 > php artisan clear:all # custom command permettant de nettoyer tous les caches
 ```
-3. Configuration
+3. Configuration des fichiers `.env` et `resources/ts/bootstrap.ts`
 2. [Optionnel] Mettre en place les migrations et des données de demo :
 ```bash
 > php artisan migrate # Migrations (Optionnel puisqu'on utilise MongoDB)
