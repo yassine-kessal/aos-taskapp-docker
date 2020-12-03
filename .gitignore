@@ -1,8 +1,10 @@
-/.idea/
+/.idea/*
 /vendor/
 node_modules/
 npm-debug.log
 yarn-error.log
+
+docker/mongodb
 
 # Laravel 4 specific
 bootstrap/compiled.php
@@ -17,6 +19,9 @@ public/hot
 # Laravel 5 & Lumen specific with changed public path
 public_html/storage
 public_html/hot
+
+package-lock.json
+composer.lock
 
 storage/*.key
 .env
