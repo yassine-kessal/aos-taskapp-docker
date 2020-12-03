@@ -17,7 +17,7 @@ Crée dans le cadre d'un entretien pour un stage.
 - Vous connecter à un compte si vous avez les identifiants
 	- Compte demo disponible (nécessite l'exécution de la commande `php artisan db:seed`
 		- Email : test@test.fr
-		- Mot de passe : Test
+		- Mot de passe : test
 - Vous pouvez ajouter, modifier, supprimer, voir et mettre une tâche comme étant terminée
 - Vous pouvez trier les tâches
 - Barre de navigation vous permettant de naviguer entre les pages (instantanément - sans recharger) et d'avoir un loader pour chaque action effectuée 
