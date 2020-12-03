@@ -26,7 +26,7 @@ class TaskFactory extends Factory
         return [
             'title' => $this->faker->sentence,
             'description' => $this->faker->paragraph,
-            'user_id' => User::first()->id,
+            'user_id' => User::where('email', 'test@test.fr')->first()->id,
             'completed' => Arr::random([true, false])
         ];
     }

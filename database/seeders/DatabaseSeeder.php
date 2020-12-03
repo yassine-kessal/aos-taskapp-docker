@@ -15,7 +15,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::factory(1)->create();
+        if(!User::where('email', 'test@test.fr')->first())
+            User::factory(1)->create();
+
         Task::factory(10)->create();
     }
 }
