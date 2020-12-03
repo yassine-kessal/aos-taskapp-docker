@@ -35,25 +35,33 @@ const LoginPage : React.FC = () => {
     }, [email, password])
 
     return (
-        <div className={"max-w-xl mx-auto bg-gray-100 p-10 rounded"}>
+        <>
+            <p className="max-w-xl mx-auto mb-3">
+                Vous pouvez utiliser un compte démo (NB: <code className={"p-2 bg-gray-100"}>php artisan db:seed</code>) : <br />
+                <strong>Email</strong> : test@test.fr<br />
+                <strong>Mot de passe</strong> : test<br />
+                Sinon vous inscrire et créer un compte vierge.
+            </p>
+            <div className={"max-w-xl mx-auto bg-gray-100 p-10 rounded"}>
 
-            <h1 className={"text-xl"}>Connexion</h1>
+                <h1 className={"text-xl"}>Connexion</h1>
 
-            <div className={"mt-5"}>
-                <div className={"mb-2"}>
-                    <Input name={"email"} onSubmit={handleLogin} error={errors.email || null} value={email} onChange={(e) => setEmail(e.target.value)} placeholder={"Email"} />
+                <div className={"mt-5"}>
+                    <div className={"mb-2"}>
+                        <Input name={"email"} onSubmit={handleLogin} error={errors.email || null} value={email} onChange={(e) => setEmail(e.target.value)} placeholder={"Email"} />
+                    </div>
+
+                    <div className={"mb-2"}>
+                        <Input name={"password"} onSubmit={handleLogin} error={errors.password || null} value={password} onChange={(e) => setPassword(e.target.value)} type={"password"} placeholder={"Mot de passe"} />
+                    </div>
+
+                    <div className="text-right">
+                        <SubmitButton onClick={handleLogin} text={"Se connecter"} />
+                    </div>
                 </div>
 
-                <div className={"mb-2"}>
-                    <Input name={"password"} onSubmit={handleLogin} error={errors.password || null} value={password} onChange={(e) => setPassword(e.target.value)} type={"password"} placeholder={"Mot de passe"} />
-                </div>
-
-                <div className="text-right">
-                    <SubmitButton onClick={handleLogin} text={"Se connecter"} />
-                </div>
             </div>
-
-        </div>
+        </>
     )
 }
 
