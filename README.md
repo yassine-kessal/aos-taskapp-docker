@@ -14,7 +14,7 @@ Crée dans le cadre d'un entretien pour un stage.
 
 #### Dans l'application `./` :  
 - Vous pouvez créer un compte utilisateur
-- Vous connectez à un compte si vous avez les identifiants
+- Vous connecter à un compte si vous avez les identifiants
 	- Compte demo disponible (nécessite l'exécution de la commande `php artisan db:seed`
 		- Email : test@test.fr
 		- Mot de passe : Test
