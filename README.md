@@ -21,6 +21,7 @@ Crée dans le cadre d'un entretien pour un stage.
 - Vous pouvez ajouter, modifier, supprimer, voir et mettre une tâche comme étant terminée
 - Vous pouvez trier les tâches
 - Barre de navigation vous permettant de naviguer entre les pages (instantanément - sans recharger) et d'avoir un loader pour chaque action effectuée 
+- Des notifications toasts
 - Des tests unitaires permettant le contrôle du bon fonctionnement de l'API
 
 ## Technologies utilisées  
