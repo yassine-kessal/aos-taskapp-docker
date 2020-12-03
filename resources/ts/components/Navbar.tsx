@@ -7,17 +7,23 @@ import {SpinnerIcon} from "./Icons";
 import {useAuth} from "../context/auth-context";
 import {useRequest} from "../hooks";
 
+/**
+ * Navbar Component
+ *
+ * @constructor
+ */
 const Navbar : React.FC = () => {
     const history = useHistory()
     const theme = useTheme()
     const auth = useAuth()
 
+    // Create the logout request and the handler
     const {exec: execLogout} = useRequest({
         url: '/logout',
         method: 'post'
     })
 
-    const toggleLogout = React.useCallback(async () => {
+    const handleLogout = React.useCallback(async () => {
         try {
             await execLogout({}, () => {
                 auth.logoutUser()
@@ -53,15 +59,15 @@ const Navbar : React.FC = () => {
                         {theme.isLoading && <SpinnerIcon />}
                         {auth.user &&
                             <>
-                                <span className={"mr-2"}>Bienvenue Yassine Kessal</span>
-                                <button onClick={toggleLogout} className={"navbar--button"}>Déconnexion</button>
+                                <span className={"mr-2"}>Bienvenue {auth.user.name}</span>
+                                <button onClick={handleLogout} className={"navbar--button"}>Déconnexion</button>
                             </>
                         }
 
                         {!auth.user &&
                             <>
                                 <button onClick={() => history.push("/login")} className={"navbar--button mr-2"}>Connexion</button>
-                                <button onClick={() => history.push("register")} className={"navbar--button"}>Inscription</button>
+                                <button onClick={() => history.push("/register")} className={"navbar--button"}>Inscription</button>
                             </>
                         }
                     </div>

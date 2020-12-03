@@ -2,17 +2,21 @@ import React, {useCallback, useState} from "react"
 import Input from "../components/Input";
 import SubmitButton from "../components/SubmitButton";
 import {useRequest} from "../hooks";
-import {loginRequestType} from "../types";
-import {useAuth} from "../context/auth-context";
+import {LoginRequestType} from "../types";
 
+/**
+ * Login Page
+ *
+ * @constructor
+ */
 const LoginPage : React.FC = () => {
     const [email, setEmail] = useState<string>(null)
     const [password, setPassword] = useState<string>(null)
-    const {exec: execLogin, errors, data}:loginRequestType = useRequest({
+
+    // Create the login request and the handler
+    const {exec: execLogin, errors, data}:LoginRequestType = useRequest({
         method: "POST"
     })
-
-    const auth = useAuth()
 
     const handleLogin = useCallback(async (e) => {
         e.preventDefault()
@@ -26,7 +30,7 @@ const LoginPage : React.FC = () => {
             }
         },
         async (result: string) => {
-            localStorage.setItem('auth-token', result)
+            localStorage.setItem('auth-token', result) // save the token when login successful
         })
     }, [email, password])
 

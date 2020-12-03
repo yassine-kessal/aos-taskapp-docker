@@ -1,6 +1,19 @@
-import React, {ChangeEventHandler} from "react"
+import React from "react"
 import {InputPropsInterface} from "../types";
 
+/**
+ * Input Html Element Component
+ *
+ * @param id
+ * @param name
+ * @param type
+ * @param placeholder
+ * @param error
+ * @param onChange
+ * @param onSubmit
+ * @param value
+ * @constructor
+ */
 const Input: React.FC<InputPropsInterface> = ({id, name, type = "text", placeholder, error, onChange, onSubmit, value }) => {
     return (
         <div className={"w-full"}>

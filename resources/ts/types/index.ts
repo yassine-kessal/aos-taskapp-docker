@@ -35,10 +35,10 @@ export interface EditModalPropsInterface {
     onTaskEdited: CallableFunction
 }
 
-export type editModalErrorsType = object & {title?: string, description?:string}
+export type EditModalErrorsType = object & {title?: string, description?:string}
 
-export type editModalRequestType = {
-    errors: editModalErrorsType,
+export type EditModalRequestType = {
+    errors: EditModalErrorsType,
     exec: CallableFunction,
 }
 
@@ -77,33 +77,33 @@ export interface TasksStatesPropsInterface {
 
 // ./components/AddTaskForm
 export interface AddTaskFormPropsInterface {
-    setTasks: CallableFunction
+    onTaskAdded: CallableFunction
     tasks: TaskType[]
 }
 
 // ./pages/TodoPage
-export type inputErrorsType = object & {title?:string}
+export type InputErrorsType = object & {title?:string}
 
-export type inputRequestType = {
-    errors: inputErrorsType,
+export type InputRequestType = {
+    errors: InputErrorsType,
     exec: CallableFunction,
     setErrors: CallableFunction
 }
 
 // ./pages/LoginPage
-export type loginErrorsType = object & {email?:string, password?: string}
+export type LoginErrorsType = object & {email?:string, password?: string}
 
-export type loginRequestType = {
-    errors: loginErrorsType,
+export type LoginRequestType = {
+    errors: LoginErrorsType,
     exec: CallableFunction,
     data?: object
 }
 
 // ./pages/RegisterPage
-export type registerErrorsType = object & {name?: string, email?:string, password?: string, passwordConfirmation?: string}
+export type RegisterErrorsType = object & {name?: string, email?:string, password?: string, passwordConfirmation?: string}
 
-export type registerRequestType = {
-    errors: registerErrorsType,
+export type RegisterRequestType = {
+    errors: RegisterErrorsType,
     exec: CallableFunction,
 }
 

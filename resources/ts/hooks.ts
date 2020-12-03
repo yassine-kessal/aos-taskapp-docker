@@ -2,18 +2,28 @@ import {useCallback, useState} from "react"
 import { AxiosRequestConfig } from "axios"
 import {useTheme} from "./context/theme-context";
 
-export const useRequest = (params: AxiosRequestConfig, withControlStates: boolean = true) => {
+/**
+ * useRequest hooks (for axios api)
+ *
+ * @param params
+ * @return {data, loading, setData, setErrors, exec, errors}
+ */
+export const useRequest = (params: AxiosRequestConfig) => {
     const theme = useTheme()
     const [loading, setLoading] = useState(false)
     const [data, setData] = useState([])
     const [errors, setErrors] = useState([])
 
+    /**
+     * Exec callback function
+     *
+     * @param execParams
+     * @param onSucces
+     * @param onFail
+     */
     const exec = useCallback(async (execParams?: AxiosRequestConfig,  onSucces?: CallableFunction, onFail?:CallableFunction) => {
-        if(withControlStates)
-        {
-            theme.enableLoading()
-            setLoading(true)
-        }
+        theme.enableLoading()
+        setLoading(true)
 
         const authToken = localStorage.getItem('auth-token')
 
@@ -42,10 +52,8 @@ export const useRequest = (params: AxiosRequestConfig, withControlStates: boolea
             console.log(error.response)
         }
 
-        if(withControlStates){
-            theme.disableLoading()
-            setLoading(false)
-        }
+        theme.disableLoading()
+        setLoading(false)
     }, [params])
 
     return {
@@ -58,6 +66,9 @@ export const useRequest = (params: AxiosRequestConfig, withControlStates: boolea
     }
 }
 
+/**
+ * Fetch list tasks request
+ */
 export const useFetchTasksRequest = () => {
     const { data: tasks, exec: execFetchTasks, setData: setTasks, loading, errors } = useRequest({
         url: "/task"

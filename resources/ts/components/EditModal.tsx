@@ -1,17 +1,26 @@
 import React, {useCallback, useState} from "react"
 import Modal from "./Modal";
-import {EditModalPropsInterface, editModalRequestType, TaskType} from "../types";
+import {EditModalPropsInterface, EditModalRequestType, TaskType} from "../types";
 import Input from "./Input";
 import {useRequest} from "../hooks";
 
+/**
+ * Edit modal component
+ *
+ * @param isOpen
+ * @param task
+ * @param setIsOpen
+ * @param onTaskEdited
+ * @constructor
+ */
 const EditModal: React.FC<EditModalPropsInterface> = ({isOpen, task, setIsOpen, onTaskEdited}) => {
     const [title, setTitle] = useState<string>(task.title)
     const [description, setDescription] = useState<string>(task.description)
 
     // Create the edit task request and the handler
-    const {exec: execEditTask, errors}:editModalRequestType = useRequest({
+    const {exec: execEditTask, errors}:EditModalRequestType = useRequest({
         method: "PATCH"
-    }, false)
+    })
 
     const taskEditHandler = useCallback(async () => {
         if(confirm('Vous êtes sure de vouloir modifier la tâche ?')) {

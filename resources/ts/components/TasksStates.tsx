@@ -1,6 +1,14 @@
 import React, {useCallback, useEffect, useState} from "react"
-import {TasksStatesPropsInterface, TaskType} from "../types"
+import {TasksStatesPropsInterface} from "../types"
 
+/**
+ * Task States Component
+ *
+ * @param tasks
+ * @param completedFilter
+ * @param setCompletedFilter
+ * @constructor
+ */
 const TasksStates : React.FC<TasksStatesPropsInterface> = ({ tasks, completedFilter, setCompletedFilter }) => {
     const [tasksStates, setTasksStates] = useState<{ all: number, done: number, todo: number }>({
         all: 0,

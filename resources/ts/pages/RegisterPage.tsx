@@ -3,17 +3,25 @@ import Input from "../components/Input";
 import SubmitButton from "../components/SubmitButton";
 import {useRequest} from "../hooks";
 import {useHistory} from "react-router"
-import {registerRequestType} from "../types";
+import {RegisterRequestType} from "../types";
+import {useToasts} from "react-toast-notifications";
 
+/**
+ * Register Page
+ *
+ * @constructor
+ */
 const RegisterPage : React.FC = () => {
     const history = useHistory()
+    const {addToast} = useToasts()
 
     const [name, setName] = useState<string>(null)
     const [email, setEmail] = useState<string>(null)
     const [password, setPassword] = useState<string>(null)
     const [passwordConfirmation, setPasswordConfirmation] = useState<string>(null)
 
-    const {exec: execRegistration, errors}:registerRequestType = useRequest({
+    // Create the register request and the handler
+    const {exec: execRegistration, errors}:RegisterRequestType = useRequest({
         url: '/register',
         method: 'post',
         data: {
@@ -28,10 +36,14 @@ const RegisterPage : React.FC = () => {
         e.preventDefault()
 
         try {
-            await execRegistration({},
-    () => {
-                history.push('/')
-            })
+            await execRegistration(
+                {},
+                () => {
+                    addToast("Vous pouvez désormais vous connecter", {appearance: 'success'})
+
+                    history.push('/')
+                }
+            )
         }
         catch (e) {
             console.log(e)

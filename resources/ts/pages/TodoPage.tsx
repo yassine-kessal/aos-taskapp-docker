@@ -5,10 +5,15 @@ import {TaskType} from "../types"
 import TasksStates from "../components/TasksStates"
 import { AnimatedList } from 'react-animated-list'
 import AddTaskForm from "../components/AddTaskForm"
-import {useTheme} from "../context/theme-context";
+import {useToasts} from "react-toast-notifications";
 
+/**
+ * Todo page
+ *
+ * @constructor
+ */
 const TodoPage : React.FC = () => {
-    const theme = useTheme()
+    const {addToast} = useToasts()
 
     // Active Complete Filter State
     const [completedFilter, setCompletedFilter] = useState<string>("all")
@@ -25,7 +30,11 @@ const TodoPage : React.FC = () => {
             <h1 className={"text-3xl"}>AOS TO-DO List</h1>
             
             <div className={"mt-3 flex"}>
-                <AddTaskForm setTasks={setTasks} tasks={tasks} />
+                <AddTaskForm tasks={tasks} onTaskAdded={(addedTask: TaskType) => {
+                    setTasks((tasks: TaskType[]) => [addedTask, ...tasks])
+
+                    addToast('Tâche ajoutée avec succès', { appearance: 'success' })
+                }} />
             </div>
 
             <div className={"mt-5"}>
@@ -40,26 +49,40 @@ const TodoPage : React.FC = () => {
                                 completedFilter={completedFilter}
                                 key={`task-${task._id}`}
                                 task={task}
-                                onTaskRemoved={(removedTask: TaskType) => setTasks(tasks => tasks.filter((task, index) => task._id !== removedTask._id))}
-                                onTaskEdited={(editedTask:TaskType) => setTasks(tasks => {
-                                    let newTasks = [
-                                        ...tasks
-                                    ]
+                                onTaskRemoved={(removedTask: TaskType) => {
+                                    setTasks(tasks => tasks.filter((task, index) => task._id !== removedTask._id))
+                                    addToast('Tâche supprimée avec succès', { appearance: 'error' })
+                                }}
+                                onTaskEdited={(editedTask:TaskType) => {
+                                    setTasks(tasks => {
+                                        let newTasks = [
+                                            ...tasks
+                                        ]
 
-                                    newTasks[newTasks.indexOf(task)].title = editedTask.title
-                                    newTasks[newTasks.indexOf(task)].description = editedTask.description
+                                        newTasks[newTasks.indexOf(task)].title = editedTask.title
+                                        newTasks[newTasks.indexOf(task)].description = editedTask.description
 
-                                    return newTasks
-                                })}
-                                onTaskToggle={() => setTasks((tasks) => {
-                                    const newTasks = [
-                                        ...tasks
-                                    ]
+                                        return newTasks
+                                    })
 
-                                    newTasks[newTasks.indexOf(task)].completed = !newTasks[newTasks.indexOf(task)].completed
+                                    addToast('Tâche modifiée avec succès', { appearance: 'success' })
+                                }}
+                                onTaskToggle={() => {
+                                    setTasks((tasks) => {
+                                        const newTasks = [
+                                            ...tasks
+                                        ]
 
-                                    return newTasks
-                                })} />
+                                        newTasks[newTasks.indexOf(task)].completed = !newTasks[newTasks.indexOf(task)].completed
+
+                                        return newTasks
+                                    })
+
+                                    addToast(
+                                        `La tâche "${task.title}" est marquée comme ${task.completed ? "terminée" : "non-terminée"}`,
+                                        { appearance: task.completed ? 'success' : 'info' }
+                                    )
+                                }} />
                         ))}
                     </AnimatedList>
                 :  <p>Aucune tâches</p>

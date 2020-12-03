@@ -2,6 +2,15 @@ import React from "react"
 import Modal from "./Modal";
 import {ShowModalPropsInterface} from "../types";
 
+/**
+ * Show Modal Component
+ *
+ * @param isOpen
+ * @param task
+ * @param setIsOpen
+ * @param taskRemoveHandler
+ * @constructor
+ */
 const ShowModal : React.FC<ShowModalPropsInterface> = ({isOpen, task, setIsOpen, taskRemoveHandler}) => {
     return (
         <Modal isOpen={isOpen}>

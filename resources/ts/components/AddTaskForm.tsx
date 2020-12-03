@@ -1,14 +1,21 @@
 import React, {useCallback, useState} from "react"
 import Input from "./Input";
 import SubmitButton from "./SubmitButton";
-import {AddTaskFormPropsInterface, inputRequestType, TaskType} from "../types";
+import {AddTaskFormPropsInterface, InputRequestType, TaskType} from "../types";
 import {useRequest} from "../hooks";
 
-const AddTaskForm : React.FC<AddTaskFormPropsInterface> = ({ setTasks, tasks }) => {
+/**
+ * AddTaskForm Component
+ *
+ * @param onTaskAdded
+ * @param tasks
+ * @constructor
+ */
+const AddTaskForm : React.FC<AddTaskFormPropsInterface> = ({ onTaskAdded, tasks }) => {
     // Create the add task request and the handler
     const [titleTask, setTitleTask] = useState("")
 
-    const {exec: execAddTask, errors: inputErrors, setErrors: setInputErrors} : inputRequestType = useRequest({
+    const {exec: execAddTask, errors: inputErrors, setErrors: setInputErrors} : InputRequestType = useRequest({
         method: "POST"
     })
 
@@ -19,10 +26,10 @@ const AddTaskForm : React.FC<AddTaskFormPropsInterface> = ({ setTasks, tasks }) 
                 title: titleTask
             }
         }, (addedTask: TaskType) => {
-            setTasks((tasks: TaskType[]) => [addedTask, ...tasks])
+            onTaskAdded(addedTask)
             setTitleTask(null)
         })
-    }, [tasks, titleTask, inputErrors])
+    }, [titleTask, inputErrors])
 
     return (
         <>
@@ -33,10 +40,9 @@ const AddTaskForm : React.FC<AddTaskFormPropsInterface> = ({ setTasks, tasks }) 
                     (e) => {
                         setTitleTask(e.target.value)
 
-                        setInputErrors((errors: { title?: string }) => ({
-                            ...errors,
+                        setInputErrors({
                             title: ""
-                        }))
+                        })
                     }
                 }
                 value={titleTask}

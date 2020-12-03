@@ -1,7 +1,13 @@
-import React, {useEffect, useState} from "react"
-import { WarningIcon } from "./Icons"
+import React from "react"
 import {ModalPropsInterface} from "../types";
 
+/**
+ * Modal Component
+ *
+ * @param isOpen
+ * @param children
+ * @constructor
+ */
 const Modal : React.FC<ModalPropsInterface> = ({ isOpen = false, children }) => {
     return (
         <div className={`fixed z-10 inset-0 overflow-y-auto ${!isOpen && "hidden"}`}>

@@ -2,15 +2,24 @@ import React, {useCallback, useState} from "react"
 import {EditIcon, RemoveIcon, ShowIcon} from "./Icons";
 import {TaskPropsInterface} from "../types";
 import {useRequest} from "../hooks";
-import Modal from "./Modal";
 import ShowModal from "./ShowModal";
 import EditModal from "./EditModal";
 
+/**
+ * Task Component
+ *
+ * @param task
+ * @param onTaskRemoved
+ * @param onTaskEdited
+ * @param onTaskToggle
+ * @param completedFilter
+ * @constructor
+ */
 const Task : React.FC<TaskPropsInterface> = ({ task, onTaskRemoved, onTaskEdited, onTaskToggle, completedFilter = "all" }) => {
     // Create the remove task request and the handler
     const {exec: execRemoveTask} = useRequest({
         method: "DELETE"
-    }, false)
+    })
 
     const taskRemoveHandler = useCallback(async () => {
         if(confirm('Vous êtes sure de vouloir supprimer la tâche ?')) {
@@ -23,7 +32,7 @@ const Task : React.FC<TaskPropsInterface> = ({ task, onTaskRemoved, onTaskEdited
     // Create the toggle task request and the handler
     const {exec: execToggleCompleteTask} = useRequest({
         method: "PATCH"
-    }, false)
+    })
 
     const taskToggleHandler = useCallback(async () => {
         await execToggleCompleteTask({

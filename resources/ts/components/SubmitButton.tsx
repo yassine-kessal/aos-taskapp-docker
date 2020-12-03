@@ -1,6 +1,13 @@
 import React from "react"
 import {SubmitButtonPropsInterface} from "../types";
 
+/**
+ * Submit Button Component
+ *
+ * @param text
+ * @param onClick
+ * @constructor
+ */
 const SubmitButton : React.FC<SubmitButtonPropsInterface> = ({ text = "Envoyer", onClick }) => {
 
     return (

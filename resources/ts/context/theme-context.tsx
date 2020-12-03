@@ -1,4 +1,4 @@
-import React, {Context, useCallback, useState} from "react"
+import React, {useCallback, useState} from "react"
 import {ProviderPropsInterface} from "../types";
 
 const defaultTheme = {
@@ -9,9 +9,16 @@ const defaultTheme = {
 
 const ThemeContext = React.createContext(defaultTheme)
 
+/**
+ * Theme Provider Component
+ *
+ * @param props
+ * @constructor
+ */
 export const ThemeProvider = (props: ProviderPropsInterface) => {
     const [isLoading, setIsLoading] = useState(defaultTheme.isLoading)
 
+    // Loading control states function (spinner on navbar when we exec request api)
     const enableLoading = useCallback(() => setIsLoading(true), [])
     const disableLoading = useCallback(() => setIsLoading(false), [])
 

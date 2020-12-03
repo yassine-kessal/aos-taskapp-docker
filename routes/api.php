@@ -20,12 +20,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/login', [SecurityController::class, "login"]);
-Route::post('/register', [SecurityController::class, "register"]);
+Route::post('/login', [SecurityController::class, "login"])->name('login');
+Route::post('/register', [SecurityController::class, "register"])->name('register');
 Route::middleware('auth:sanctum')->post('/logout', [SecurityController::class, "logout"]);
 
 Route::middleware('auth:sanctum')->apiResource('/task', TaskController::class)->except([
-    "show"
+    "show", "edit"
 ])->scoped([
     "task" => "_id"
 ]);
