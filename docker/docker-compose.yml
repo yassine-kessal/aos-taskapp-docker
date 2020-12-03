@@ -1,0 +1,45 @@
+version: "3"
+
+services: 
+  app:
+    build: 
+      args:
+        user: yass
+        uid: 1000
+      context: ./
+      dockerfile: Dockerfile
+    image: aos
+    container_name: aos-app
+    restart: unless-stopped
+    working_dir: /var/www/
+    volumes:
+      - ../:/var/www
+    networks:
+      - aos
+
+  nginx:
+    image: nginx:alpine
+    container_name: aos-nginx
+    restart: unless-stopped
+    ports:
+      - 8000:80
+    volumes:
+      - ../:/var/www
+      - ./nginx/sites:/etc/nginx/conf.d/
+    networks:
+      - aos
+
+  mongodb:
+    image: mongo:latest
+    container_name: aos-mongo
+    restart: always
+    volumes:
+      - ./mongodb/data:/data/db
+    ports:
+      - 27017:27017
+    networks:
+      - aos
+
+networks:
+  aos:
+    driver: bridge
