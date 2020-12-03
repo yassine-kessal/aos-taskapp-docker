@@ -85,6 +85,7 @@ Cloner le dépôt GitHub :
 1. Éditez le fichier `.env` pour mettre en place :
 	- APP_URL
 	- La connexion vers votre serveur MongoDB
+	- `SESSION_DOMAIN et SANCTUM_STATEFUL_DOMAINS` pour les requètes api (CORS, CSRF)
 2. Éditez le fichier `resources/ts/bootstrap.ts` pour mettre en place :
 	- window.axios.defaults.baseURL => l'url de base de l'api
 	- baseFrontedAppUrl => l'url de base du site
