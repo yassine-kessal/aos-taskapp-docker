@@ -10,6 +10,11 @@ use Illuminate\Validation\ValidationException;
 class SecurityController extends Controller
 {
 
+    /**
+     * @param Request $request
+     * @return mixed
+     * @throws ValidationException
+     */
     public function login(Request $request) {
         $request->validate([
             'email' => 'required|email',
@@ -18,7 +23,6 @@ class SecurityController extends Controller
         ]);
 
         $user = User::where('email', $request->email)->first();
-
 
         if (! $user || ! Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([
@@ -29,6 +33,10 @@ class SecurityController extends Controller
         return $user->createToken($request->device_name)->plainTextToken;
     }
 
+    /**
+     * @param Request $request
+     * @return mixed
+     */
     public function register(Request $request) {
         $request->validate([
             'email' => 'required|email|unique:users',
@@ -37,13 +45,16 @@ class SecurityController extends Controller
             'passwordConfirmation' => 'required|same:password',
         ]);
 
-
         $user = User::create($request->only(['email', 'password', 'name']));
         $user->password = Hash::make($request->password);
 
         return $user->save();
     }
 
+    /**
+     * @param Request $request
+     * @return mixed
+     */
     public function logout(Request $request) {
         return $request->user()->tokens()->delete();
     }

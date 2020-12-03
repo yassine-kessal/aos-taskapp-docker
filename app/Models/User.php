@@ -44,7 +44,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * TODO make comment.
+     * Rewrite createToken trait function to adapt for mongodb
      *
      * @param  string  $name
      * @param  array  $abilities

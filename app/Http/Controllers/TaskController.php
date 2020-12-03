@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class TaskController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index(Request $request)
     {
@@ -21,8 +22,9 @@ class TaskController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @return Task
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request)
     {
@@ -42,8 +44,10 @@ class TaskController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param Task $task
+     * @return Task
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function update(Request $request, Task $task)
     {
@@ -62,7 +66,7 @@ class TaskController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param Task $task
-     * @return bool
+     * @return Task
      */
     public function toggleCompleted(Request $request, Task $task)
     {
@@ -76,11 +80,12 @@ class TaskController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Task $task
+     * @return bool|null
+     * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy(Task $task)
     {
-        return Task::find($id)->delete();
+        return $task->delete();
     }
 }
