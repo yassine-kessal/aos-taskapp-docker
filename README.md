@@ -42,7 +42,7 @@ Cloner le dépôt GitHub :
 1. Se rendre dans le dossier `./docker` build et lancer le container :
 ```bash
 > cd docker
-> docker-compose up -d --build
+> docker-compose up -d --build # utiliser `sudo` pour le rebuild 
 ``` 
 2. Entrer dans le workspace du container et préparer l'environnement laravel:
 ```bash
