@@ -50,7 +50,7 @@ Cloner le dépôt GitHub :
 # verifier qu'on se trouve bien dans le dossier /var/www sinon `cd /var/www`
 > composer install # installer les dépendances PHP
 > npm install # installer les dépendances JS/TS
-> cp .env-example .env
+> cp .env.example .env
 > php artisan key:generate
 > npm run prod 
 > php artisan clear:all # custom command permettant de nettoyer tous les caches
