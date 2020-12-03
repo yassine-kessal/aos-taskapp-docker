@@ -1,61 +1,98 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## AOS Taskapp - Entretien (Single Page Application)  
+  
+Application de gestion des tâches avec authentification (Single Page Application).  
+  
+Crée dans le cadre d'un entretien pour un stage.  
 
-## About Laravel
+### Tâches effectuées
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+#### Environnement Docker `./docker` :
+- La création d'un environnement Docker pour tester ou déployer rapidement l'application 
+	- docker-compose.yml : permettant l'installation d'un workspace(Dockerfile), d'un serveur nginx et de la base de donnée mongodb
+	- Dockerfile : permettant la configuration du workspace  (incluant php8 avec les extensions nécessaires à laravel 8 et mongodb, npm, composer et git
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+#### Dans l'application `./` :  
+- Vous pouvez créer un compte utilisateur
+- Vous connecter à un compte si vous avez les identifiants
+	- Compte demo disponible (nécessite l'exécution de la commande `php artisan db:seed`
+		- Email : test@test.fr
+		- Mot de passe : Test
+- Vous pouvez ajouter, modifier, supprimer, voir et mettre une tâche comme étant terminée
+- Vous pouvez trier les tâches
+- Barre de navigation vous permettant de naviguer entre les pages (instantanément - sans recharger) et d'avoir un loader pour chaque action effectuée 
+- Des tests unitaires permettant le contrôle du bon fonctionnement de l'API
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Technologies utilisées  
+  
+- Docker 
+- PHP 8.0  
+- Laravel 8
+- MongoDB  
+- React 16.8 (comme demandé)  
+- Typescript
 
-## Learning Laravel
+## Installation et utilisation
+Cloner le dépôt GitHub :
+```bash
+> git clone https://github.com/yassine-kessal/aos-taskapp
+```
+### Avec Docker
+1. Se rendre dans le dossier `./docker` build et lancer le container :
+```bash
+> cd docker
+> docker-compose up -d --build
+``` 
+2. Entrer dans le workspace du container et préparer l'environnement laravel:
+```bash
+> docker-compose exec app bash # Accéder au workspace
+# verifier qu'on se trouve bien dans le dossier /var/www sinon `cd /var/www`
+> composer install # installer les dépendances PHP
+> npm install # installer les dépendances JS/TS
+> cp .env-example .env
+> php artisan key:generate
+> npm run prod 
+> php artisan clear:all # custom command permettant de nettoyer tous les caches
+```
+4. [Optionnel] Mettre en place les migrations et des données de demo :
+```bash
+> php artisan migrate # Migrations (Optionnel puisqu'on utilise MongoDB)
+> php artisan db:seed # Pour insérer des données de demo
+```
+5. Ouvrir dans le navigateur `http://127.0.0.1:8000`  et tester l'application
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Sans Docker
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+1. Préparer l'environnement laravel:
+```bash
+> composer install # installer les dépendances PHP
+> npm install # installer les dépendances JS/TS
+> cp .env-example .env
+> php artisan key:generate
+> npm run prod 
+> php artisan clear:all # custom command permettant de nettoyer tous les caches
+```
+3. Configuration
+2. [Optionnel] Mettre en place les migrations et des données de demo :
+```bash
+> php artisan migrate # Migrations (Optionnel puisqu'on utilise MongoDB)
+> php artisan db:seed # Pour insérer des données de demo
+```
+5. Lancer le serveur `php artisan serve` et ouvrir dans le navigateur `http://127.0.0.1:8000`  (tester l'application)
 
-## Laravel Sponsors
+### Configuration (Optionnel si vous utilisez Docker)
+1. Éditez le fichier `.env` pour mettre en place :
+	- APP_URL
+	- La connexion vers votre serveur MongoDB
+2. Éditez le fichier `resources/ts/bootstrap.ts` pour mettre en place :
+	- window.axios.defaults.baseURL => l'url de base de l'api
+	- baseFrontedAppUrl => l'url de base du site
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Tests
+Des tests unitaires sont présent pour contrôler le bon fonctionnement de l'API 
+```bash
+> php artisan test
+# or
+> ./vendor/bin/phpunit
+```
+### Merci.
