@@ -4,7 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Str;
-use Jenssegers\Mongodb\Auth\User as Authenticatable;
+// use Jenssegers\Mongodb\Auth\User as Authenticatable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
@@ -49,41 +50,41 @@ class User extends Authenticatable
      * @param  string  $name
      * @param  array  $abilities
      */
-    public function createToken(string $name, array $abilities = ['*'])
-    {
-        $plainTextToken = Str::random(40);
+    // public function createToken(string $name, array $abilities = ['*'])
+    // {
+    //     $plainTextToken = Str::random(40);
 
-        $token = $this->tokens()->create([
-            'name' => $name,
-            'token' => hash('sha256', $plainTextToken),
-            'abilities' => $abilities,
-        ]);
+    //     $token = $this->tokens()->create([
+    //         'name' => $name,
+    //         'token' => hash('sha256', $plainTextToken),
+    //         'abilities' => $abilities,
+    //     ]);
 
-        return new class($token, $plainTextToken) {
+    //     return new class($token, $plainTextToken) {
 
-            public $accessToken;
+    //         public $accessToken;
 
-            public $plainTextToken;
+    //         public $plainTextToken;
 
-            public function __construct(PersonalAccessToken $accessToken, string $plainTextToken)
-            {
-                $this->accessToken = $accessToken;
-                $this->plainTextToken = $plainTextToken;
-            }
+    //         public function __construct(PersonalAccessToken $accessToken, string $plainTextToken)
+    //         {
+    //             $this->accessToken = $accessToken;
+    //             $this->plainTextToken = $plainTextToken;
+    //         }
 
-            public function toArray()
-            {
-                return [
-                    'accessToken' => $this->accessToken,
-                    'plainTextToken' => $this->plainTextToken,
-                ];
-            }
+    //         public function toArray()
+    //         {
+    //             return [
+    //                 'accessToken' => $this->accessToken,
+    //                 'plainTextToken' => $this->plainTextToken,
+    //             ];
+    //         }
 
-            public function toJson($options = 0)
-            {
-                return json_encode($this->toArray(), $options);
-            }
+    //         public function toJson($options = 0)
+    //         {
+    //             return json_encode($this->toArray(), $options);
+    //         }
 
-        };
-    }
+    //     };
+    // }
 }

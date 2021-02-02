@@ -70,6 +70,7 @@ class TaskController extends Controller
      */
     public function toggleCompleted(Request $request, Task $task)
     {
+        dd($task);
         $task->completed = !$task->completed;
 
         $task->save();
